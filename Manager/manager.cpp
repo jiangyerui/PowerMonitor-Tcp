@@ -123,8 +123,15 @@ void Manager::managerWork()
 //    process2.execute(cmd2);//jiang
     //jiangend20190512
 
-    //QString m_mac = m_db.getMACAdress();
-    //m_db.setLocalMacToDB(m_mac);
+    QString m_mac = m_db.getMACAdress();
+    //QString m_mac = "00:00:01:00:00:01";
+    if(m_mac!=""){
+        bool b = m_db.setLocalMacToDB(m_mac);
+        if(!b){
+            qDebug()<<"setLocalMacToDB error";
+        }
+    }
+
 
 
     m_udpClient = new UdpClient;//jiang20190512

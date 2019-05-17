@@ -815,7 +815,13 @@ uint MySqlite::getTotleTime()
  QString MySqlite::getMACAdress()
  {
      QList<QNetworkInterface> nets = QNetworkInterface::allInterfaces();// 获取所有网络接口列表
+     if(nets.isEmpty()){
+         return "";
+     }
      int nCnt = nets.count();
+     if(nCnt<1){
+         return "";
+     }
      QString strMacAddr = "";
      for(int i = 0; i < nCnt; i ++)
      {
@@ -852,7 +858,7 @@ uint MySqlite::getTotleTime()
  {
      bool isSuccess = false;
      //QString sql = "update SERVER_INFO set local_dns = '"+local_dns+"';";
-     QString sql = "insert into MAC_INFO values('"+localMac+"');";
+     QString sql = "update MAC_INFO set m_mac = '"+localMac+"';";
      QSqlQuery query(m_db);
      if(query.exec(sql))
      {

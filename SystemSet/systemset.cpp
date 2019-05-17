@@ -36,7 +36,7 @@ void SystemSet::initQT(){
     uint data_interval = m_db.getDataInterval();
     uint heart_interval = m_db.getHeartInterval();
     uint server_port = m_db.getServerPort();
-    QString macAdr = m_db.getMACAdress();
+    QString macAdr = m_db.getLocalMacFromDB();
 /*
     qDebug()<<"ip_or_name="+ip_or_name
               +"\n local_dns="+local_dns

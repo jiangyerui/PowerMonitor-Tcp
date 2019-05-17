@@ -66,13 +66,14 @@ void UdpClient::init_m_byteArray(){
     m_byteArray[13] = 0x00; //协议编号：0x0005 电压电流网关－>服务器
     m_byteArray[14] = 0x05;
 
-    QString macStr = udp_db.getMACAdress();
+    //QString macStr = udp_db.getMACAdress();
+    QString macStr = udp_db.getLocalMacFromDB();
     QStringList list = macStr.split(":");
     if(!list.isEmpty()){
         for(int i=0;i<6;i++){
             QString str = list.at(i);
             QByteArray senddata = QString2Hex(str);
-            qDebug()<<"senddata[0]======"+QString::number(senddata[0]);
+            //qDebug()<<"senddata[0]======"+QString::number(senddata[0]);
             if(!senddata.isEmpty()){
                 m_byteArray[15+i] = senddata[0]; //Mac地址
             }
@@ -100,7 +101,8 @@ void UdpClient::init_m_heartArray(){
     m_heartArray[13] = 0x00; //协议编号：0x0005 电压电流网关－>服务器
     m_heartArray[14] = 0x05;
 
-    QString macStr = udp_db.getMACAdress();
+//    QString macStr = udp_db.getMACAdress();
+    QString macStr = udp_db.getLocalMacFromDB();
     QStringList list = macStr.split(":");
     if(!list.isEmpty()){
         for(int i=0;i<6;i++){
@@ -131,7 +133,8 @@ void UdpClient::init_m_returnArray(){
     //m_returnArray[13] = 0x00; //协议编号：0x0001 网关－>服务器
     //m_returnArray[14] = 0x01;
 
-    QString macStr = udp_db.getMACAdress();
+//    QString macStr = udp_db.getMACAdress();
+    QString macStr = udp_db.getLocalMacFromDB();
     QStringList list = macStr.split(":");
     if(!list.isEmpty()){
         for(int i=0;i<6;i++){
@@ -520,17 +523,18 @@ void UdpClient::getServerHost()
     if(!list.isEmpty()){
         timer1->stop();
         serverHost = list.first();
-        qDebug()<<"getServerHost ======== success!!serverHost="+str+"-------//port="+QString::number(PORT);
+        //qDebug()<<"getServerHost ======== success!!serverHost="+str+"-------//port="+QString::number(PORT);
         emit getServerSuccess();
     }else{
         int ret = ::system("echo nameserver 219.141.136.10 >> /etc/resolv.conf");
-        qDebug()<<"jiang ret = "<< ret;
+        qDebug()<<"getServerHost() error";
     }
 }
 
 //开启发送数据包的定时器
 void UdpClient::startSendTimer()
 {
+    qDebug()<<"server connect success,udp send start....";
     //qDebug()<<"startSendTimer()";
     timer->start();
     timerHeart->start();
