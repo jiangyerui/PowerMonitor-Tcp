@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Image/clipboard.png</file>
+        <file>Image/computer.png</file>
+        <file>Image/magnifyingglass.png</file>
+        <file>Image/profle.png</file>
+        <file>Image/running.png</file>
+        <file>Image/tools.png</file>
+        <file>Image/volume.png</file>
+        <file>Image/backGround.png</file>
+        <file>Image/hostInfo.png</file>
+        <file>Image/arrow-down.png</file>
+        <file>Image/arrow-up.png</file>
+        <file>Image/gear.png</file>
+        <file>Image/print.png</file>
+        <file>Image/recycle.png</file>
+        <file>Image/checked.png</file>
+        <file>Image/uncheck.png</file>
+        <file>Image/devGround.png</file>
+        <file>Image/Bevone.png</file>
+        <file>Image/go-back.png</file>
+        <file>Image/mute.png</file>
+        <file>Image/reset.png</file>
+        <file>Image/speaker.png</file>
+        <file>Image/ooopic_1524532026.png</file>
+        <file>Image/ooopic_1524532052.png</file>
+        <file>Image/ooopic_1524532068.png</file>
+        <file>Image/ooopic_1524532085.png</file>
+        <file>Image/ooopic_1524532108.png</file>
+        <file>Image/ooopic_1524532144.png</file>
+        <file>Image/ooopic_1524532158.png</file>
+        <file>Image/ooopic_1524532169.png</file>
+        <file>Image/reseted.png</file>
+        <file>Image/record.png</file>
+        <file>Image/ooopic_1524532936.png</file>
+        <file>Image/pic.png</file>
+        <file>Image/webp.png</file>
+    </qresource>
+</RCC>

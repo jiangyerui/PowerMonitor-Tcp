@@ -1,0 +1,1042 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Record</class>
+ <widget class="QWidget" name="Record">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#SystemSet{
+border:1px solid rgb(53, 156, 212);
+color: rgb(255, 255,255);
+background-color: rgb(0, 50, 105);
+background-color: rgb(255, 255, 255);
+}
+QGroupBox{
+font: 14pt &quot;文泉驿等宽微米黑&quot;;
+border: 2px solid rgb(85, 170, 127);
+border-radius:8px;
+margin-top:10px;
+}
+QGroupBox:title{
+color:black;
+subcontrol-origin: margin;
+subcontrol-position: top center;
+left: 5px;
+}
+
+QLabel{
+color: rgb(0, 0, 0);
+}
+
+QPushButton{
+font: 14pt &quot;文泉驿等宽微米黑&quot;;
+border:2px solid rgb(53, 156, 212);
+border-radius:8px;
+color: rgb(0, 0, 0);
+}
+QPushButton:pressed{
+font: 13pt &quot;文泉驿等宽微米黑&quot;;
+background-color:rgb(85, 170, 255);
+}
+
+QComboBox {
+	border:1px solid  rgb(53, 156, 212);
+	color: rgb(255, 255, 255);
+	font: 12pt &quot;文泉驿等宽微米黑&quot;;
+   background-color: rgb(0, 50, 105);
+}
+QComboBox::item {	
+	font: 12pt &quot;文泉驿等宽微米黑&quot;;
+	color: rgb(255, 255, 255);
+    background-color: rgb(0, 50, 105);
+	selection-background-color: rgb(0, 170, 255);
+}</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>407</y>
+     <width>790</width>
+     <height>70</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QGroupBox{
+font: 14pt &quot;文泉驿等宽微米黑&quot;;
+border: 1px solid rgb(14, 237, 237);
+border-radius:8px;
+margin-top:10px;
+}
+QGroupBox:title{
+color:black;
+subcontrol-origin: margin;
+subcontrol-position: top center;
+left: 5px;
+}
+QLabel{
+color: white;
+}
+QLabel#lb_count{
+border:1px solid;
+border-radius:4px;
+color: white;
+}
+QLabel#lb_current{
+border:1px solid;
+border-radius:4px;
+color: white;
+}
+
+QToolButton{
+font: 16pt &quot;文泉驿等宽微米黑&quot;;
+border:1px solid;
+border-radius:8px;
+color: white;
+border-color: rgb(53, 156, 212);
+
+}
+QToolButton:pressed{
+font: 14pt &quot;文泉驿等宽微米黑&quot;;
+background-color:rgb(85, 170, 255);
+}
+</string>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QLabel" name="lb_current">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>25</y>
+      <width>40</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_pageNum">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>25</y>
+      <width>51</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(10, 10, 10);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="placeholderText">
+     <string>页数</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_Symbol">
+    <property name="geometry">
+     <rect>
+      <x>225</x>
+      <y>25</y>
+      <width>20</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>页</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_count">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>25</y>
+      <width>61</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_quit">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>20</y>
+      <width>80</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>返回</string>
+    </property>
+    <property name="icon">
+     <iconset resource="../image.qrc">
+      <normaloff>:/Image/go-back.png</normaloff>:/Image/go-back.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextBesideIcon</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_count_2">
+    <property name="geometry">
+     <rect>
+      <x>365</x>
+      <y>25</y>
+      <width>21</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>页</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_current_2">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>25</y>
+      <width>40</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>总共</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_current_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>25</y>
+      <width>40</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>当前</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_Symbol_2">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>25</y>
+      <width>20</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>页</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_jump">
+    <property name="geometry">
+     <rect>
+      <x>255</x>
+      <y>20</y>
+      <width>50</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>跳转</string>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextBesideIcon</enum>
+    </property>
+    <property name="autoRaise">
+     <bool>false</bool>
+    </property>
+    <property name="arrowType">
+     <enum>Qt::NoArrow</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_check">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>20</y>
+      <width>80</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>查询</string>
+    </property>
+    <property name="icon">
+     <iconset resource="../image.qrc">
+      <normaloff>:/Image/magnifyingglass.png</normaloff>:/Image/magnifyingglass.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextBesideIcon</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_upPage">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>20</y>
+      <width>95</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>上一页</string>
+    </property>
+    <property name="icon">
+     <iconset resource="../image.qrc">
+      <normaloff>:/Image/arrow-up.png</normaloff>:/Image/arrow-up.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextBesideIcon</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_downPage">
+    <property name="geometry">
+     <rect>
+      <x>505</x>
+      <y>20</y>
+      <width>95</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>下一页</string>
+    </property>
+    <property name="icon">
+     <iconset resource="../image.qrc">
+      <normaloff>:/Image/arrow-down.png</normaloff>:/Image/arrow-down.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextBesideIcon</enum>
+    </property>
+   </widget>
+   <zorder>lb_Symbol</zorder>
+   <zorder>lb_current</zorder>
+   <zorder>lineEdit_pageNum</zorder>
+   <zorder>lb_count</zorder>
+   <zorder>tBtn_quit</zorder>
+   <zorder>lb_count_2</zorder>
+   <zorder>lb_current_2</zorder>
+   <zorder>lb_current_3</zorder>
+   <zorder>lb_Symbol_2</zorder>
+   <zorder>tBtn_jump</zorder>
+   <zorder>tBtn_check</zorder>
+   <zorder>tBtn_upPage</zorder>
+   <zorder>tBtn_downPage</zorder>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>90</y>
+     <width>790</width>
+     <height>325</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>文泉驿等宽微米黑</family>
+     <pointsize>13</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTableWidget{
+font: 13pt &quot;文泉驿等宽微米黑&quot;;
+gridline-color: rgb(0, 0, 0);
+}
+QTableWidgetItem{
+font: 13pt &quot;文泉驿等宽微米黑&quot;;
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>-5</y>
+     <width>790</width>
+     <height>85</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QGroupBox{
+font: 14pt &quot;文泉驿等宽微米黑&quot;;
+border: 1px solid rgb(14, 237, 237);
+border-radius:8px;
+margin-top:10px;
+}
+QGroupBox:title{
+color:black;
+subcontrol-origin: margin;
+subcontrol-position: top center;
+left: 5px;
+}
+QLabel{
+color: black;
+}
+
+QToolButton{
+font: 14pt &quot;文泉驿等宽微米黑&quot;;
+border:1px solid;
+border-radius:8px;
+color:black;
+border-color: rgb(53, 156, 212);
+
+}
+QToolButton:pressed{
+font: 13pt &quot;文泉驿等宽微米黑&quot;;
+background-color:rgb(85, 170, 255);
+}
+QToolButton:hover{
+font: 13pt &quot;文泉驿等宽微米黑&quot;;
+background-color:rgb(85, 170, 255);
+}
+/*RadioButton和checkbox字体和间距设置*/
+QCheckBox{
+color: rgb(0, 0, 0);
+border:1px solid;
+border-radius:10px;
+spacing: 10px;
+background-color: rgb(13, 216, 136);
+}
+QCheckBox::indicator{
+width:12px;
+height:12px;
+margin-left:5px;
+image: url(:/Image/uncheck.png);
+}
+
+QCheckBox::indicator::unchecked {
+image: url(:/Image/uncheck.png);
+}
+QCheckBox::indicator::checked {
+image: url(:/Image/checked.png);
+}</string>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QLabel" name="lb_stat">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>15</y>
+      <width>67</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>起始时间：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_end">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>50</y>
+      <width>67</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>结束时间：</string>
+    </property>
+   </widget>
+   <widget class="QDateTimeEdit" name="dTEdit_end">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>50</y>
+      <width>190</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:1px solid  rgb(58, 152, 234);</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="correctionMode">
+     <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+    </property>
+    <property name="displayFormat">
+     <string>yyyy/MM/dd hh:mm:ss</string>
+    </property>
+   </widget>
+   <widget class="QDateTimeEdit" name="dTEdit_start">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>15</y>
+      <width>190</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border:1px solid  rgb(58, 152, 234);
+</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::NoButtons</enum>
+    </property>
+    <property name="currentSection">
+     <enum>QDateTimeEdit::YearSection</enum>
+    </property>
+    <property name="displayFormat">
+     <string>yyyy/MM/dd hh:mm:ss</string>
+    </property>
+    <property name="timeSpec">
+     <enum>Qt::LocalTime</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="QCom_del">
+    <property name="geometry">
+     <rect>
+      <x>375</x>
+      <y>15</y>
+      <width>92</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1000</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;文泉驿等宽微米黑&quot;;</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>当前一条</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>当前一页</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>所有记录</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="lb_delType">
+    <property name="geometry">
+     <rect>
+      <x>285</x>
+      <y>15</y>
+      <width>90</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1200</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>数据处理:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lb_dataType">
+    <property name="geometry">
+     <rect>
+      <x>285</x>
+      <y>50</y>
+      <width>90</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>1200</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>数据类型:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cbBox_type">
+    <property name="geometry">
+     <rect>
+      <x>375</x>
+      <y>50</y>
+      <width>92</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 14pt &quot;文泉驿等宽微米黑&quot;;</string>
+    </property>
+    <property name="maxCount">
+     <number>4</number>
+    </property>
+    <item>
+     <property name="text">
+      <string>全部记录</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>供电中断</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>故障记录</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_net">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>17</y>
+      <width>81</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="text">
+     <string>通道</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_pass">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>15</y>
+      <width>51</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_id">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>52</y>
+      <width>81</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="text">
+     <string>地址</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_address">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>50</y>
+      <width>51</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>15</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_print">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>20</y>
+      <width>65</width>
+      <height>55</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>打 印</string>
+    </property>
+    <property name="icon">
+     <iconset resource="../image.qrc">
+      <normaloff>:/Image/print.png</normaloff>:/Image/print.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextUnderIcon</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_del">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>20</y>
+      <width>65</width>
+      <height>55</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>删 除</string>
+    </property>
+    <property name="icon">
+     <iconset resource="../image.qrc">
+      <normaloff>:/Image/recycle.png</normaloff>:/Image/recycle.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextUnderIcon</enum>
+    </property>
+   </widget>
+   <zorder>lb_stat</zorder>
+   <zorder>lb_end</zorder>
+   <zorder>dTEdit_end</zorder>
+   <zorder>dTEdit_start</zorder>
+   <zorder>lb_delType</zorder>
+   <zorder>lb_dataType</zorder>
+   <zorder>QCom_del</zorder>
+   <zorder>cbBox_type</zorder>
+   <zorder>checkBox_net</zorder>
+   <zorder>lineEdit_pass</zorder>
+   <zorder>checkBox_id</zorder>
+   <zorder>lineEdit_address</zorder>
+   <zorder>tBtn_print</zorder>
+   <zorder>tBtn_del</zorder>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>480</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border-image: url(:/Image/webp.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>label</zorder>
+  <zorder>groupBox_3</zorder>
+  <zorder>tableWidget</zorder>
+  <zorder>groupBox</zorder>
+ </widget>
+ <resources>
+  <include location="../image.qrc"/>
+ </resources>
+ <connections/>
+</ui>
