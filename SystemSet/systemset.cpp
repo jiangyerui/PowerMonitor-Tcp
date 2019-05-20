@@ -37,6 +37,7 @@ void SystemSet::initQT(){
     uint heart_interval = m_db.getHeartInterval();
     uint server_port = m_db.getServerPort();
     QString macAdr = m_db.getLocalMacFromDB();
+//    QString macAdr = m_db.getMACAdress();
 /*
     qDebug()<<"ip_or_name="+ip_or_name
               +"\n local_dns="+local_dns
@@ -453,6 +454,17 @@ void SystemSet::slotBtnKeyStart()
 void SystemSet::slotBtnSetHost()
 {
     QString host = ui->lineEdit_IP->text();
+    QString macAddr = m_db.getMACAdress();
+    if(macAddr.isEmpty()){
+        macAddr = "00:00:01:00:00:01";
+    }
+    //qDebug()<<"slotBtnSetHost()macAddr="+macAddr;
+    bool b = m_db.setLocalMacToDB(macAddr);
+    if(b){
+        qDebug()<<"set mac success !!";
+    }else{
+        qDebug()<<"set mac fail!!";
+    }
     if(m_db.insertHost(host))
     {
         QMessageBox::information(NULL,tr("操作提示"),tr("ip地址设置成功,即可重启！"),tr("关闭"));

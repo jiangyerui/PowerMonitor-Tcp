@@ -28,11 +28,13 @@ public:
     QTimer *timerHeart; //发送心跳包定时器
     QTimer *timer1;
     MySqlite udp_db;
+    int setMacFlag = 3;//写MAC到数据库,开机后写3次；
 
     void mySleep(int sec);
     uint GetCrc_16(unsigned char *pData, int nLength, unsigned short init, const unsigned short *ptable);
     uint CRC_GetModbus16(unsigned char *pdata, int len);
-    uint GetCRCCode(QByteArray data);
+//    uint GetCRCCode(QByteArray data);
+    uint GetCRCCode(QByteArray data,int len);
     char ConvertHexChar(char ch);
     QByteArray QString2Hex(QString str);
     //void returnServerData(QByteArray ba);

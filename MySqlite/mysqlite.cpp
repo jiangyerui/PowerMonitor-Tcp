@@ -816,11 +816,11 @@ uint MySqlite::getTotleTime()
  {
      QList<QNetworkInterface> nets = QNetworkInterface::allInterfaces();// 获取所有网络接口列表
      if(nets.isEmpty()){
-         return "";
+         return "00:00:01:00:00:01";
      }
      int nCnt = nets.count();
      if(nCnt<1){
-         return "";
+         return "00:00:01:00:00:01";
      }
      QString strMacAddr = "";
      for(int i = 0; i < nCnt; i ++)
@@ -833,6 +833,10 @@ uint MySqlite::getTotleTime()
              break;
          }
      }
+     if(strMacAddr.isEmpty()){
+         return "00:00:01:00:00:01";
+     }
+     qDebug()<<"strMacAddr"+strMacAddr;
      return strMacAddr;
  }
 

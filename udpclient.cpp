@@ -66,10 +66,16 @@ void UdpClient::init_m_byteArray(){
     m_byteArray[13] = 0x00; //协议编号：0x0005 电压电流网关－>服务器
     m_byteArray[14] = 0x05;
 
-    //QString macStr = udp_db.getMACAdress();
+//    QString macStr = udp_db.getMACAdress();
     QString macStr = udp_db.getLocalMacFromDB();
+//    if(setMacFlag>0){
+//        bool b = udp_db.setLocalMacToDB(macStr);
+//        setMacFlag--;
+//        qDebug()<<"set mac to DB No."+QString::number(setMacFlag)+",status="+b;
+//    }
+    //qDebug()<<"macStr=="+macStr;
     QStringList list = macStr.split(":");
-    if(!list.isEmpty()){
+    if(!list.isEmpty()&&(list.length()==6)){
         for(int i=0;i<6;i++){
             QString str = list.at(i);
             QByteArray senddata = QString2Hex(str);
@@ -77,9 +83,11 @@ void UdpClient::init_m_byteArray(){
             if(!senddata.isEmpty()){
                 m_byteArray[15+i] = senddata[0]; //Mac地址
             }
-
         }
     }else{
+        for(int i=0;i<6;i++){
+                m_byteArray[15+i] = 0; //Mac地址
+        }
         qDebug()<<"get Mac address fail!!";
     }
     m_byteArray[21] = 0x01; //数据长度?
@@ -113,6 +121,9 @@ void UdpClient::init_m_heartArray(){
             }
         }
     }else{
+        for(int i=0;i<6;i++){
+                m_byteArray[15+i] = 0; //Mac地址
+        }
         qDebug()<<"get Mac address fail!!";
     }
     m_heartArray[21] = 0x00; //数据长度
@@ -145,6 +156,9 @@ void UdpClient::init_m_returnArray(){
             }
         }
     }else{
+        for(int i=0;i<6;i++){
+                m_byteArray[15+i] = 0; //Mac地址
+        }
         qDebug()<<"get Mac address fail!!";
     }
 
@@ -269,9 +283,12 @@ uint UdpClient::CRC_GetModbus16(unsigned char *pdata, int len) {
 }
 
 //CRC16校验
-uint UdpClient::GetCRCCode(QByteArray data) {
+uint UdpClient::GetCRCCode(QByteArray data,int len) {
     //qDebug()<<"GetCRCCode()";
-    uint result = CRC_GetModbus16((unsigned char *)data.data(), data.length());
+    //qDebug()<<"data.length()=="+QString::number(data.length());
+    //int len = 23;
+//    uint result = CRC_GetModbus16((unsigned char *)data.data(), data.length());
+    uint result = CRC_GetModbus16((unsigned char *)data.data(), len);
     return result;
 }
 
@@ -363,8 +380,8 @@ void UdpClient::sendOnceData(uint pass,uint startCanId)
         m_byteArray[44+i*20] = ci_1>>8;
         m_byteArray[45+i*20] = ci_1;
     }
-
-    uint m_crc16 = GetCRCCode(m_byteArray);
+    int len = 346;
+    uint m_crc16 = GetCRCCode(m_byteArray,len);
     m_byteArray[346] = m_crc16>>8;//CRC16校验,高8位
     m_byteArray[347] = m_crc16;//CRC16校验,低8位
     m_byteArray[348] = 0x55;//固定帧尾
@@ -401,7 +418,8 @@ void UdpClient::sendHeartData(){
     m_heartArray[5] = timestamp>>8;
     m_heartArray[6] = timestamp;
 
-    uint m_crc16 = GetCRCCode(m_heartArray);
+    int len = 23;
+    uint m_crc16 = GetCRCCode(m_heartArray,len);
     m_heartArray[23] = m_crc16>>8;//CRC16校验,高8位
     m_heartArray[24] = m_crc16;//CRC16校验,低8位
     m_heartArray[25] = 0x55; //帧尾：0X55
@@ -466,7 +484,8 @@ void UdpClient::recvServerData(){
                     m_returnArray[14] = m_recvArray[14];
 
                     //CRC16
-                    uint m_crc16 = GetCRCCode(m_returnArray);
+                    int len = 23;
+                    uint m_crc16 = GetCRCCode(m_returnArray,len);
                     m_returnArray[23] = m_crc16>>8;//CRC16校验,高8位
                     m_returnArray[24] = m_crc16;//CRC16校验,低8位
                     m_returnArray[25] = 0x55; //帧尾：0X55
@@ -491,7 +510,8 @@ void UdpClient::recvServerData(){
                 m_returnArray[14] = m_recvArray[14];
 
                 //CRC16
-                uint m_crc16 = GetCRCCode(m_returnArray);
+                int len = 23;
+                uint m_crc16 = GetCRCCode(m_returnArray,len);
                 m_returnArray[23] = m_crc16>>8;//CRC16校验,高8位
                 m_returnArray[24] = m_crc16;//CRC16校验,低8位
                 m_returnArray[25] = 0x55; //帧尾：0X55
