@@ -722,11 +722,6 @@ image: url(:/Image/checked.png);
       <string>当前一页</string>
      </property>
     </item>
-    <item>
-     <property name="text">
-      <string>所有记录</string>
-     </property>
-    </item>
    </widget>
    <widget class="QLabel" name="lb_delType">
     <property name="geometry">

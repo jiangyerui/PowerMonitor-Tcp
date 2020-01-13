@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql serialport
+
+QT       += core gui sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets serialport
 
@@ -12,6 +13,7 @@ TARGET = PowerMonitor
 DESTDIR = destApp/
 TEMPLATE = app
 CONFIG += serialport
+
 
 DEFINES += RUN_ON_ARM
 
@@ -27,6 +29,10 @@ SOURCES += main.cpp\
     MySqlite/mysqlite.cpp \
     Manager/manager.cpp \
     MyPrint/myprint.cpp \
+#jaing
+    LinuxCom/posix_qextserialport.cpp \
+    LinuxCom/qextserialbase.cpp \
+#jiang
     Moudle/moudle.cpp \
     CanMoudle/canmoudle.cpp \
     SelfCheck/screencheck.cpp \
@@ -46,6 +52,10 @@ HEADERS  += mainwindow.h \
     MySqlite/mysqlite.h \
     Manager/manager.h \
     MyPrint/myprint.h \
+#jiang
+    LinuxCom/posix_qextserialport.h \
+    LinuxCom/qextserialbase.h \
+#jiang
     Moudle/moudle.h \
     CanMoudle/canmoudle.h \
     SelfCheck/screencheck.h \

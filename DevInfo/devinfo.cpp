@@ -15,6 +15,9 @@ DevInfo::DevInfo(QWidget *parent) :
     initNodeBtn();
     initConnect();
     lcdNumberClean();
+    //隐藏探测器地址界面
+    ui->label_29->hide();
+    ui->lb_address->hide();
 }
 
 DevInfo::~DevInfo()

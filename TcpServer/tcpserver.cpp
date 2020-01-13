@@ -163,10 +163,14 @@ void TcpServer::moduleStatus()
     uint av_2 = g_mod[pass][canId].AV_4;
     uint bv_2 = g_mod[pass][canId].BV_5;
     uint cv_2 = g_mod[pass][canId].CV_6;
-    uint ai_1 = g_mod[pass][canId].AI_1;
-    uint bi_1 = g_mod[pass][canId].BI_2;
-    uint ci_1 = g_mod[pass][canId].CI_3;
+//    uint ai_1 = g_mod[pass][canId].AI_1;
+//    uint bi_1 = g_mod[pass][canId].BI_2;
+//    uint ci_1 = g_mod[pass][canId].CI_3;
 
+
+    uint ai_1 = g_mod[pass][canId].AI_1*10;
+    uint bi_1 = g_mod[pass][canId].BI_2*10;
+    uint ci_1 = g_mod[pass][canId].CI_3*10;
     sendToClient(pass,canId,type,modeSts,av_1,bv_1,cv_1,av_2,bv_2,cv_2,ai_1,bi_1,ci_1);
 
 

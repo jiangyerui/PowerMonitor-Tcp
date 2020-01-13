@@ -11,7 +11,6 @@
 UdpClient::UdpClient(QObject *parent) : QObject(parent)
 {
     //qDebug()<<"UdpClient()";
-
     m_udpClient = new QUdpSocket;
     //m_udpServer = new QUdpSocket(this);
     //QString host = udp_db.getHost();
@@ -60,6 +59,8 @@ void UdpClient::init_m_byteArray(){
     //qDebug()<<"init_m_byteArray()";
     m_byteArray[0] = 0xAA; //固定帧头
     m_byteArray[7] = 0x02;  //数据来源：网关
+    m_byteArray[8] = 0x00;  //数据类型：正常数据
+    m_byteArray[9] = 0x00;  //事件代码：无事件
     m_byteArray[10] = 0x00; //生产商编号：0x000001
     m_byteArray[11] = 0x00;
     m_byteArray[12] = 0x01;
@@ -91,7 +92,7 @@ void UdpClient::init_m_byteArray(){
         qDebug()<<"get Mac address fail!!";
     }
     m_byteArray[21] = 0x01; //数据长度?
-    m_byteArray[22] = 0x5D;
+    m_byteArray[22] = 0xD3;
     m_byteArray[23] = 0x05; //模块类型：消防电源主机
     m_byteArray[25] = 0x10; //探测器数量
 }
@@ -312,6 +313,10 @@ void UdpClient::sendOnceData(uint pass,uint startCanId)
     m_byteArray[4] = timestamp>>16;
     m_byteArray[5] = timestamp>>8;
     m_byteArray[6] = timestamp;
+//    for(int i=26;i<492;i++){
+//        m_byteArray[i] = 0x00;
+//    }
+
     for(int i=0;i<16;i++){
         //探测器状态
         //0x00探测器通信中
@@ -321,80 +326,131 @@ void UdpClient::sendOnceData(uint pass,uint startCanId)
         //0x04探测器通信故障
         //0x05探测器不在线
         uint modeSts = 0x05;
+        uint cannelSts = 0x00;
         if(g_mod[pass][startCanId+i].normalFlag == TRUE)//正常
         {
-            modeSts = 0x01;
+            modeSts = 0x01;//0x01探测器正常
+            cannelSts = 0x01;
         }
         if(g_mod[pass][startCanId+i].overCurrentFlag == TRUE)//过流
         {
-            modeSts = 0x03;
+            modeSts = 0x03;//0x03探测器故障：过欠流、过欠压、错相
+            cannelSts = 0x02;
         }
         if(g_mod[pass][startCanId+i].phaseLossFlag == TRUE)//错相
         {
-            modeSts = 0x03;
+            modeSts = 0x03;//0x03探测器故障：过欠流、过欠压、错相
+            cannelSts = 0x03;
         }
         if(g_mod[pass][startCanId+i].overVoltageFlag == TRUE)//过压
         {
-            modeSts = 0x03;
+            modeSts = 0x03;//0x03探测器故障：过欠流、过欠压、错相
+            cannelSts = 0x02;
         }
         if(g_mod[pass][startCanId+i].underVoltageFlag == TRUE)//欠压
         {
-            modeSts = 0x03;
+            modeSts = 0x03;//0x03探测器故障：过欠流、过欠压、错相
+            cannelSts = 0x02;
         }
         if(g_mod[pass][startCanId+i].dropFlag == TRUE)//掉线
         {
-            modeSts = 0x04;
+            modeSts = 0x04;//0x04探测器通信故障
+            cannelSts = 0x03;
         }
         if(g_mod[pass][startCanId+i].interruptionFlag == TRUE)//供电中断
         {
-            modeSts = 0x02;
+            modeSts = 0x02;//0x02探测器报警：供电中断
+            cannelSts = 0x02;
         }
-        uint av_1 = g_mod[pass][startCanId+i].AV_1;
-        uint bv_1 = g_mod[pass][startCanId+i].BV_2;
-        uint cv_1 = g_mod[pass][startCanId+i].CV_3;
-        uint av_2 = g_mod[pass][startCanId+i].AV_4;
-        uint bv_2 = g_mod[pass][startCanId+i].BV_5;
-        uint cv_2 = g_mod[pass][startCanId+i].CV_6;
-        uint ai_1 = g_mod[pass][startCanId+i].AI_1;
-        uint bi_1 = g_mod[pass][startCanId+i].BI_2;
-        uint ci_1 = g_mod[pass][startCanId+i].CI_3;
 
-        m_byteArray[26+i*20] = startCanId+i;//探测器索引
-        m_byteArray[27+i*20] = modeSts;//探测器状态
-        m_byteArray[28+i*20] = av_1>>8;//av_1高8位
-        m_byteArray[29+i*20] = av_1;//av_低8位
-        m_byteArray[30+i*20] = bv_1>>8;
-        m_byteArray[31+i*20] = bv_1;
-        m_byteArray[32+i*20] = cv_1>>8;
-        m_byteArray[33+i*20] = cv_1;
-        m_byteArray[34+i*20] = av_2>>8;
-        m_byteArray[35+i*20] = av_2;
-        m_byteArray[36+i*20] = bv_2>>8;
-        m_byteArray[37+i*20] = bv_2;
-        m_byteArray[38+i*20] = cv_2>>8;
-        m_byteArray[39+i*20] = cv_2;
-        m_byteArray[40+i*20] = ai_1>>8;
-        m_byteArray[41+i*20] = ai_1;
-        m_byteArray[42+i*20] = bi_1>>8;
-        m_byteArray[43+i*20] = bi_1;
-        m_byteArray[44+i*20] = ci_1>>8;
-        m_byteArray[45+i*20] = ci_1;
+        m_byteArray[26+i*29] = startCanId+i-1;//探测器索引
+        m_byteArray[27+i*29] = modeSts;//探测器状态s
+
+        if(modeSts != 0x05 && modeSts != 0x04)
+        {
+            uint av_1 = g_mod[pass][startCanId+i].AV_1;
+            uint bv_1 = g_mod[pass][startCanId+i].BV_2;
+            uint cv_1 = g_mod[pass][startCanId+i].CV_3;
+            uint av_2 = g_mod[pass][startCanId+i].AV_4;
+            uint bv_2 = g_mod[pass][startCanId+i].BV_5;
+            uint cv_2 = g_mod[pass][startCanId+i].CV_6;
+            uint ai_1 = g_mod[pass][startCanId+i].AI_1;
+            uint bi_1 = g_mod[pass][startCanId+i].BI_2;
+            uint ci_1 = g_mod[pass][startCanId+i].CI_3;
+            m_byteArray[28+i*29] = cannelSts;
+            m_byteArray[29+i*29] = av_1>>8;//av_1高8位
+            m_byteArray[30+i*29] = av_1;//av_低8位
+            m_byteArray[31+i*29] = cannelSts;
+            m_byteArray[32+i*29] = bv_1>>8;
+            m_byteArray[33+i*29] = bv_1;
+            m_byteArray[34+i*29] = cannelSts;
+            m_byteArray[35+i*29] = cv_1>>8;
+            m_byteArray[36+i*29] = cv_1;
+            m_byteArray[37+i*29] = cannelSts;
+            m_byteArray[38+i*29] = av_2>>8;
+            m_byteArray[39+i*29] = av_2;
+            m_byteArray[40+i*29] = cannelSts;
+            m_byteArray[41+i*29] = bv_2>>8;
+            m_byteArray[42+i*29] = bv_2;
+            m_byteArray[43+i*29] = cannelSts;
+            m_byteArray[44+i*29] = cv_2>>8;
+            m_byteArray[45+i*29] = cv_2;
+            m_byteArray[46+i*29] = cannelSts;
+            m_byteArray[47+i*29] = ai_1>>8;
+            m_byteArray[48+i*29] = ai_1;
+            m_byteArray[49+i*29] = cannelSts;
+            m_byteArray[50+i*29] = bi_1>>8;
+            m_byteArray[51+i*29] = bi_1;
+            m_byteArray[52+i*29] = cannelSts;
+            m_byteArray[53+i*29] = ci_1>>8;
+            m_byteArray[54+i*29] = ci_1;
+        }else{
+            m_byteArray[28+i*29] = 0x00;
+            m_byteArray[29+i*29] = 0x00;
+            m_byteArray[30+i*29] = 0x00;
+            m_byteArray[31+i*29] = 0x00;
+            m_byteArray[32+i*29] = 0x00;
+            m_byteArray[33+i*29] = 0x00;
+            m_byteArray[34+i*29] = 0x00;
+            m_byteArray[35+i*29] = 0x00;
+            m_byteArray[36+i*29] = 0x00;
+            m_byteArray[37+i*29] = 0x00;
+            m_byteArray[38+i*29] = 0x00;
+            m_byteArray[39+i*29] = 0x00;
+            m_byteArray[40+i*29] = 0x00;
+            m_byteArray[41+i*29] = 0x00;
+            m_byteArray[42+i*29] = 0x00;
+            m_byteArray[43+i*29] = 0x00;
+            m_byteArray[44+i*29] = 0x00;
+            m_byteArray[45+i*29] = 0x00;
+            m_byteArray[46+i*29] = 0x00;
+            m_byteArray[47+i*29] = 0x00;
+            m_byteArray[48+i*29] = 0x00;
+            m_byteArray[49+i*29] = 0x00;
+            m_byteArray[50+i*29] = 0x00;
+            m_byteArray[51+i*29] = 0x00;
+            m_byteArray[52+i*29] = 0x00;
+            m_byteArray[53+i*29] = 0x00;
+            m_byteArray[54+i*29] = 0x00;
+        }
+
     }
-    int len = 346;
+
+    int len = 490;
     uint m_crc16 = GetCRCCode(m_byteArray,len);
-    m_byteArray[346] = m_crc16>>8;//CRC16校验,高8位
-    m_byteArray[347] = m_crc16;//CRC16校验,低8位
-    m_byteArray[348] = 0x55;//固定帧尾
+    m_byteArray[490] = m_crc16>>8;//CRC16校验,高8位
+    m_byteArray[491] = m_crc16;//CRC16校验,低8位
+    m_byteArray[492] = 0x55;//固定帧尾
 
     //发送到服务器
     int ret = m_udpClient->writeDatagram(m_byteArray,serverHost,PORT);
     if(ret<0){
         qDebug()<<"+++++++++++++++sendData fail++++++++++++++++";
     }
-
 }
 
 //发送数据包
+//本主机支持向物联网平台发送128台探测器，每次发16台，一共发8次
 void UdpClient::sendData(){
     uint pass = 1;
     uint startCanId = sendDataCount*16+1;
@@ -554,7 +610,7 @@ void UdpClient::getServerHost()
 //开启发送数据包的定时器
 void UdpClient::startSendTimer()
 {
-    qDebug()<<"server connect success,udp send start....";
+    qDebug()<<"server connect success,udp send start0.0....";
     //qDebug()<<"startSendTimer()";
     timer->start();
     timerHeart->start();

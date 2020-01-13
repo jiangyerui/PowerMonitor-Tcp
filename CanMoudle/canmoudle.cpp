@@ -114,6 +114,9 @@ void CanMoudle::run()
 
 int CanMoudle::initCanPort(const char *canName)
 {
+
+
+
     struct ifreq ifr;
     struct sockaddr_can addr;
     int canfd = socket(PF_CAN, SOCK_RAW, CAN_RAW);
@@ -139,6 +142,8 @@ int CanMoudle::initCanPort(const char *canName)
         }
         qDebug()<<"**** Open "<<canName<<" OK **** ";
     }
+
+
     return canfd;
 }
 

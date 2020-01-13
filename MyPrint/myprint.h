@@ -6,7 +6,7 @@
 #include <QByteArray>
 #include <QMessageBox>
 #include <QTextCodec>
-//#include <QSerialPort>//jiang
+#include "LinuxCom/posix_qextserialport.h"
 #include "MySqlite/mysqlite.h"
 
 
@@ -23,16 +23,21 @@ class MyPrint : public QObject
     Q_OBJECT
 public:
 
-    char lf[2];
-    MySqlite m_db;
-    static MyPrint *print;
-//    QSerialPort *myCom;//jiang
 
-    void initSerialPort(const QString &name);
+    char lf[2];
+//    char init[2];
+//    char printCode[3];
+//    char printinit[5];
+//    char printChn[2];
+    MySqlite m_db;
+    QTextCodec *gbk;
+    static MyPrint *print;
+    Posix_QextSerialPort *myCom;
+
+    void initCom();
     static MyPrint *getPrint();
     static void deletePrint();
     void checkSelfPrint(QString nodeNum,QString alarmNum, QString errorNum, QString power, QString bpower);
-    void printConnect(QString net, QString id, QString status, QString time, QString address);
     void printConnect(QString net, QString id, QString type, QString status, QString value, QString time, QString address);
 
 signals:

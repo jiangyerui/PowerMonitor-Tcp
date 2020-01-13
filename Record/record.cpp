@@ -26,8 +26,13 @@ void Record::initVar()
     m_model = new QSqlQueryModel();
 
     m_myPrint = MyPrint::getPrint();
-    QString name = "/dev/ttymxc1";
-    m_myPrint->initSerialPort(name);
+    m_myPrint->initCom();
+
+    //隐藏所有记录，通道，
+    ui->checkBox_id->hide();
+    ui->checkBox_net->hide();
+    ui->lineEdit_address->hide();
+    ui->lineEdit_pass->hide();
 
 
 
@@ -245,18 +250,23 @@ void Record::slotBtnPrint()
     int index = ui->QCom_del->currentIndex();
     if(index == 0)
     {
+
         //判断有没有选中一行
         int row = ui->tableWidget->currentRow();
         if(row >= 0)
         {
+
             setPrint(ui->tableWidget,m_myPrint,row,ui->tableWidget->columnCount());
         }
+
     }
     else if(index == 1)
     {
+
         int rowNum = ui->tableWidget->rowCount();
         if(rowNum > 0)
         {
+
             for(int row = 0;row < rowNum;row++)
             {
                 setPrint(ui->tableWidget,m_myPrint,row,ui->tableWidget->columnCount());
@@ -400,6 +410,7 @@ void Record::showData(QTableWidget *tableWidget, QString sql, int currentPage)
 void Record::setPrint(QTableWidget *tableWidget, MyPrint *myPrint, int row, int columnCount)
 {
     QList <QString> printList;
+
     for(int column = 0;column < columnCount;column++)
     {
         QString str = tableWidget->item(row,column)->text();
@@ -408,11 +419,27 @@ void Record::setPrint(QTableWidget *tableWidget, MyPrint *myPrint, int row, int 
 
     QString net    = printList.at(0);
     QString id     = printList.at(1);
+    QString type   = printList.at(2);
     QString status = printList.at(2);
-    QString time   = printList.at(3);
-    QString add    = printList.at(4);
-    myPrint->printConnect(net, id, status, time, add);
+    QString value  = printList.at(4);
+    QString time   = printList.at(3);//时间
+    QString add    = tr("**北京联创广汇**");
+
+    /*
+    QString net    = printList.at(0);
+    QString id     = printList.at(1);
+    QString type   = printList.at(2);
+    QString status = printList.at(3);
+    QString value  = printList.at(4);
+    QString time   = printList.at(5);
+    QString add    = printList.at(6);
+*/
+
+    myPrint->printConnect(net, id, type,status,value, time,add);
+
     printList.clear();
+
+
 
 
 }

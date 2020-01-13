@@ -26,6 +26,8 @@ SystemSet::~SystemSet()
 
 //初始化界面jiang20190513
 void SystemSet::initQT(){
+
+    ui->pBtn_serverSet->hide();
     //本机初始化
     QString ip = m_db.getHost();
     ui->lineEdit_IP->setText(ip);
@@ -453,6 +455,7 @@ void SystemSet::slotBtnKeyStart()
 
 void SystemSet::slotBtnSetHost()
 {
+    /*
     QString host = ui->lineEdit_IP->text();
     QString macAddr = m_db.getMACAdress();
     if(macAddr.isEmpty()){
@@ -473,6 +476,56 @@ void SystemSet::slotBtnSetHost()
     else
     {
         QMessageBox::information(NULL,tr("操作提示"),tr("ip地址设置失败！"),tr("关闭"));
+    }
+    */
+
+
+    bool b1 = false;
+    bool b2 = false;
+    bool b3 = false;
+    bool b4 = false;
+    bool b5 = false;
+    bool b6 = false;
+
+    QString ip_or_name = ui->lineEdit_server_ip_or_name->text();
+    QString local_dns = ui->lineEdit_local_dns->text();//网关
+    QString data_interval = ui->lineEdit_data_interval->text();
+    QString heart_interval = ui->lineEdit_heart_interval->text();
+    QString server_port = ui->lineEdit_server_port->text();
+
+    b1 = m_db.setServerIPOrName(ip_or_name);
+    b2 = m_db.setLocalDns(local_dns);
+    b3 = m_db.setDataInterval(data_interval.toInt());
+    b4 = m_db.setHeartInterval(heart_interval.toInt());
+    b5 = m_db.setServerPort(server_port.toInt());
+
+
+
+
+    //
+    QString host = ui->lineEdit_IP->text();
+    b6 = m_db.insertHost(host);
+
+    QString macAddr = m_db.getMACAdress();
+    if(macAddr.isEmpty()){
+        macAddr = "00:00:01:00:00:01";
+    }
+    //qDebug()<<"slotBtnSetHost()macAddr="+macAddr;
+    bool b = m_db.setLocalMacToDB(macAddr);
+    if(b){
+        qDebug()<<"set mac success !!";
+    }else{
+        qDebug()<<"set mac fail!!";
+    }
+    //
+
+
+    if(b1&&b2&&b3&&b4&&b5&&b6){
+        QMessageBox::information(NULL,tr("操作提示"),tr("服务器设置成功,即可重启！"),tr("关闭"));
+        ::system("wr reboot");
+    }
+    else{
+        QMessageBox::information(NULL,tr("操作提示"),tr("服务器设置失败！"),tr("关闭"));
     }
 }
 
@@ -548,7 +601,7 @@ void SystemSet::slotLoginStatus(int type)
 }
 
 
-//服务器设置jiang20190513
+//服务器设置jiang20190513//本函数废弃20190926
 void SystemSet::on_pBtn_serverSet_clicked()
 {
     bool b1 = false;
@@ -568,6 +621,24 @@ void SystemSet::on_pBtn_serverSet_clicked()
     b3 = m_db.setDataInterval(data_interval.toInt());
     b4 = m_db.setHeartInterval(heart_interval.toInt());
     b5 = m_db.setServerPort(server_port.toInt());
+
+
+
+    //
+    QString host = ui->lineEdit_IP->text();
+    QString macAddr = m_db.getMACAdress();
+    if(macAddr.isEmpty()){
+        macAddr = "00:00:01:00:00:01";
+    }
+    //qDebug()<<"slotBtnSetHost()macAddr="+macAddr;
+    bool b = m_db.setLocalMacToDB(macAddr);
+    if(b){
+        qDebug()<<"set mac success !!";
+    }else{
+        qDebug()<<"set mac fail!!";
+    }
+    //
+
 
     if(b1&&b2&&b3&&b4&&b5){
         QMessageBox::information(NULL,tr("操作提示"),tr("服务器设置成功,即可重启！"),tr("关闭"));

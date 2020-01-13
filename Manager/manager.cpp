@@ -47,6 +47,22 @@ void Manager::initVar()
     if(m_passNum == 1)
     {
         canMoudle_1 = new CanMoudle;
+
+        /*
+        //修改波特率
+        QProcess process0;
+        QString cmd0 = QString("ifconfig can0 down");
+        process0.execute(cmd0);//jiang
+        //修改波特率
+        QProcess process1;
+        QString cmd1 = QString("ip link set can0 type can bitrate 20000");
+        process1.execute(cmd1);//jiang
+        //修改波特率,使能配置
+        QProcess process2;
+        QString cmd2 = QString("ifconfig can0 up");
+        process2.execute(cmd2);//jiang
+        */
+
         canMoudle_1->initCanMoudle(1,"can0");
         connect(canMoudle_1,SIGNAL(sigCanLed()),m_gpio,SLOT(slotCanLed()));
         connect(canMoudle_1,SIGNAL(sigBtnSound()),m_devInfo,SLOT(slotSound()));
@@ -106,18 +122,24 @@ void Manager::initConnect()
 
 void Manager::managerWork()
 {
+
     QString ip = m_db.getHost();
+
     //qDebug()<<"================"+ip;
     QProcess process;//ifconfig eth0 192.168.126.245
     QString cmd = QString("ifconfig eth0 ")+ip;
-    //QString cmd = QStringLiteral("ifconfig eth0 ")+ip;//jiang
-    process.execute(cmd);//jiang
+//    QString cmd = QStringLiteral("ifconfig eth0 ")+ip;//jiang
+    process.execute(cmd);//注：耗时动作，NFS调试时请注解本行
 
 
-    //jiangstart20190512
+    //jiangstart20190512//网关20190926
+    QString gateway = m_db.getLocalDns();
     QProcess process1;
-    QString cmd1 = QString("route add default gw 192.168.0.1");
+//    QString cmd1 = QString("route add default gw 192.168.1.1");
+    QString cmd1 = QString("route add default gw ")+gateway;
     process1.execute(cmd1);//jiang
+
+
 //    QProcess process2;
 //    QString cmd2 = QString("echo nameserver 219.141.136.10 >> /etc/resolv.conf");
 //    process2.execute(cmd2);//jiang
